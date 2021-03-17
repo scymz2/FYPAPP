@@ -52,5 +52,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //map
+        sensor = findViewById(R.id.sensor);
+        sensor.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MapActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
     }
 }
