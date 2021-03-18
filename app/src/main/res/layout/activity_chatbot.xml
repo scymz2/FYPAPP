@@ -43,6 +43,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#f1f3fa"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/bottom"
         app:layout_constraintEnd_toEndOf="parent"
