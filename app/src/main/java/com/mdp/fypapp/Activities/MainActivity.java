@@ -60,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //tool
+        tool = findViewById(R.id.train);
+        tool.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ChartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
 
         //chatbot
         chatbot = findViewById(R.id.chatbot);

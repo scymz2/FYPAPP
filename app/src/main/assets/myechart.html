@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+        height: 100%;
+        }
+        body {
+        background-color: #fff;
+        color: #fff;
+        font-family: "Microsoft YaHei";
+        }
+        .bg {
+        }
+        .item {
+        // padding: 30px 30px 50px;
+        }
+    </style>
+</head>
+
+<script src="js/echarts.common.min.js"></script>
+
+<body>
+
+    <div id="lineChart" style="float: center; width: '100%';height: 380px; margin-left: '2%';margin-bottom: 35px"></div>
+    <div id="barChart" style="float: center; width: '100%';height: 380px; margin-left: '2%';margin-bottom: 35px"></div>
+    <div id="pieChart" style="float: center; width: '100%';height: 380px; margin-left: '2%';margin-bottom: 35px"></div>
+
+    <script type="text/javascript">
+        var myLineChart;
+        var lineOptions;
+        var myBarChart;
+        var barOptions;
+        var myPieChart;
+        var pieOptions;
+
+        var childUrl = './images/child.png';
+        var lineJson;
+
+        function createLineChart(obj) {
+            lineJson = obj;
+            lineOptions = {
+                title: {
+                    text: obj.title,
+                    subtext: '  UNNC',
+                    x: 'left'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    formatter: "temperature : <br/>{b} - {c} ℃"
+                },
+                xAxis: {
+                    id: 'dataX',
+                    type: 'category',
+                    splitLine: {
+                        show: true
+                    },
+                    axisLabel: {
+                        //formatter: '{value} °C'
+                        formatter: '{value}'
+                    },
+                    data: obj.times //动态展示运动时间
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: { onZero: true },
+                    splitLine: {
+                        show: true
+                    },
+                    axisLabel: {
+                        //formatter: '{value} km'
+                        formatter: '{value}'
+                    },
+                    min: 0,
+                    max: 40//在此设置范围
+                },
+
+                dataZoom: [
+                    {
+                        id: 'dataZoom',
+                        show: false,
+                        type: 'inside',//inside 为拖动效果
+                        //type: 'slider',//slider为手动更新效果
+                        realtime: true,
+                        filterMode: 'filter',
+                        start: 20,
+                        end: 85,
+                        xAxisIndex: 0
+                    }
+                ],
+
+                series: [{
+                    id: 'dataY',
+                    name: 'temperature/℃',
+                    type: 'line',
+                    smooth: true,
+                    data: obj.temp, //动态展示运动步数数据
+                    lineStyle: {
+                        normal: {
+                            width: 3,
+                            shadowColor: 'rgba(0,0,0,0.4)',
+                            shadowBlur: 10,
+                            shadowOffsetY: 10
+                        }
+                    },
+                    markPoint: {//标注点
+                        data: [//这种方式内部自动计算最值
+                            {
+                                type: 'max',
+                                name: 'maximum',
+                                symbol: 'image://' + childUrl,
+                                symbolSize: [25, 30],
+                                symbolOffset: [0, '-60%']
+                            },
+                            {
+                                type: 'min',
+                                name: 'minimum',
+                                symbol: 'image://' + childUrl,
+                                symbolSize: [25, 30],
+                                symbolOffset: [0, '50%']
+                            }
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            { type: 'average', name: 'average' }
+                        ]
+                    }
+                }]
+            };
+        }
+
+        //更新折线图的缩放起始位置
+        function updateZoomState(start, end) {
+            myChart.setOption({
+                dataZoom: [{
+                    id: 'dataZoom',
+                    start: start,
+                    end: end
+                }]
+            });
+        }
+
+        //获取数组最小值
+        function getMinValue(obj) {
+            var min = obj.temp[0];
+            for (var i = 1; i < obj.temp.length; i++) {
+                if (obj.temp[i] < min) {
+                    min = obj.temp[i];
+                }
+            }
+            return min;
+        }
+        //获取数组最大值
+        function getMaxValue(obj) {
+            var max = obj.temp[0];
+            for (var i = 1; i < obj.temp.length; i++) {
+                if (obj.temp[i] > max) {
+                    max = obj.temp[i];
+                }
+            }
+            return max;
+        }
+
+
+
+        //显示图表
+        function createChart(type, json1) {
+            createLineChart(json1);
+            // 基于准备好的dom，初始化echarts实例
+            myLineChart = echarts.init(document.getElementById('lineChart'));
+            //使用指定的配置项和数据显示图表。
+            myLineChart.setOption(lineOptions);
+        }
+        function createChart2(type, json1) {
+            createBarChart(json1);
+            // 基于准备好的dom，初始化echarts实例
+            myBarChart = echarts.init(document.getElementById('barChart'));
+            //使用指定的配置项和数据显示图表。
+            myBarChart.setOption(barOptions);
+        }
+        function createChart3(type, json1) {
+            createPieChart(json1);
+            // 基于准备好的dom，初始化echarts实例
+            myPieChart = echarts.init(document.getElementById('pieChart'));
+            //使用指定的配置项和数据显示图表。
+            myPieChart.setOption(pieOptions);
+        }
+    </script>
+
+</body>
