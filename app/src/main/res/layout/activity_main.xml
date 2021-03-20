@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_register"
         android:orientation="vertical"
-        android:paddingBottom="100dp">
+        android:paddingBottom="40dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -39,36 +39,6 @@
                 android:layout_height="60dp"
                 android:layout_marginRight="5dp"
                 android:layout_alignParentRight="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="280dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <WebView
-                    android:id="@+id/weather"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </WebView>
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="@style/Widget.AppCompat.ProgressBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical" />
-            </androidx.cardview.widget.CardView>
-
-
 
         </RelativeLayout>
 
@@ -223,6 +193,30 @@
 
 
         </GridLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
+
+                <WebView
+                    android:id="@+id/weather"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </WebView>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" />
+            </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 

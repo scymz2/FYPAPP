@@ -9,22 +9,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:gravity="center">
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/station"/>
+            android:layout_marginTop="6dp"
+            android:src="@drawable/iot"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="STATION"
-            android:fontFamily="sans-serif"
-            android:textStyle="italic"
-            android:layout_gravity="center"
-            android:textColor="#000"
-            android:textSize="16sp"/>
 
     </LinearLayout>
 
@@ -32,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp">
 
 
@@ -40,22 +32,22 @@
             android:id="@+id/number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimary"
             android:fontFamily="sans-serif"
             android:textStyle="italic"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="8dp"
-            android:text="serial:   No.01"/>
+            android:text="Serial:   No.01"/>
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
+            android:textColor="@color/colorPrimary"
             android:fontFamily="sans-serif"
             android:textStyle="italic"
             android:layout_marginLeft="8dp"
-            android:text="status: working..."/>
+            android:text="Status: working..."/>
 
 
 
@@ -63,10 +55,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="15dp"
+
+            android:layout_marginRight="10dp"
             android:fontFamily="sans-serif"
             android:textStyle="italic"
+            android:textSize="10sp"
             android:text="detail info >"/>
 
     </LinearLayout>

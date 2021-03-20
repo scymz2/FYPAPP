@@ -151,15 +151,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //添加标记到指定经纬度
         gMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Marker")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
 
 
         gMap.addMarker(new MarkerOptions().position(new LatLng(29.800060, 121.564924)).title("Marker1")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
 
 
         gMap.addMarker(new MarkerOptions().position(new LatLng(29.798608, 121.561029)).title("Marker2")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker1)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
 
 
 
@@ -174,28 +174,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        //add circles
-        CircleOptions circleOptions = new CircleOptions()
-                .center(appointLoc)
-                .strokeWidth(0)
-                .fillColor(0x62FF0000)
-                .radius(100);
-
-        CircleOptions circleOptions1 = new CircleOptions()
-                .center(new LatLng(29.800060, 121.564924))
-                .strokeWidth(0)
-                .fillColor(0x62FFFF00)
-                .radius(300);
-
-        CircleOptions circleOptions2 = new CircleOptions()
-                .center(new LatLng(29.798608, 121.561029))
-                .strokeWidth(0)
-                .fillColor(0x6200FF00)
-                .radius(200);
-
-        gMap.addCircle(circleOptions);
-        gMap.addCircle(circleOptions1);
-        gMap.addCircle(circleOptions2);
+//        //add circles
+//        CircleOptions circleOptions = new CircleOptions()
+//                .center(appointLoc)
+//                .strokeWidth(0)
+//                .fillColor(0x62FF0000)
+//                .radius(100);
+//
+//        CircleOptions circleOptions1 = new CircleOptions()
+//                .center(new LatLng(29.800060, 121.564924))
+//                .strokeWidth(0)
+//                .fillColor(0x62FFFF00)
+//                .radius(300);
+//
+//        CircleOptions circleOptions2 = new CircleOptions()
+//                .center(new LatLng(29.798608, 121.561029))
+//                .strokeWidth(0)
+//                .fillColor(0x6200FF00)
+//                .radius(200);
+//
+//        gMap.addCircle(circleOptions);
+//        gMap.addCircle(circleOptions1);
+//        gMap.addCircle(circleOptions2);
     }
 
     private void getLocationPermission(){

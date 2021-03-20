@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
+        <activity android:name=".Activities.RegisterActivity"></activity>
         <activity android:name=".Activities.StationActivity" />
 
         <meta-data
@@ -27,14 +28,13 @@
         <activity android:name=".Activities.MapActivity" />
         <activity android:name=".Activities.DataViewActivity" />
         <activity android:name=".Activities.ChatbotActivity" />
-        <activity android:name=".Activities.MainActivity"/>
-        <activity android:name=".Activities.LaunchActivity">
+        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

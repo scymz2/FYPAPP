@@ -1,6 +1,7 @@
 package com.mdp.fypapp.Charts;
 
 import android.content.Context;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.github.abel533.echarts.Option;
@@ -16,6 +17,8 @@ import com.github.abel533.echarts.style.ItemStyle;
 import com.github.abel533.echarts.style.LineStyle;
 import com.mdp.fypapp.Data.EnvData;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class TempLineChart {
@@ -71,9 +74,12 @@ public class TempLineChart {
         //根据获取的数据赋值
         for(EnvData lineData: lineDatas){
             //增加类目，值为日期
-            categoryAxisX.data(lineData.getTime());
+            Date date = new Date(lineData.getTime());
+            SimpleDateFormat sfd = new SimpleDateFormat("HH:mm");
+            sfd.format(date);
+            categoryAxisX.data(date);
             //日期对应的数据
-            line.data(lineData.getData());
+            line.data(lineData.getTemperature());
         }
         //设置x轴为类目轴
         option.xAxis(categoryAxisX);

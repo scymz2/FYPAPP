@@ -1,40 +1,19 @@
 package com.mdp.fypapp.Model;
 
 public class Sensor {
-    private double lat;
-    private double lng;
     private double temp;
-    private double humdi;
     private double noise;
     private double light;
 
     public Sensor() {
     }
 
-    public Sensor(double lat, double lng, double temp, double humdi, double noise, double light) {
-        this.lat = lat;
-        this.lng = lng;
+    public Sensor(double temp, double noise, double light) {
         this.temp = temp;
-        this.humdi = humdi;
         this.noise = noise;
         this.light = light;
     }
 
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLng() {
-        return lng;
-    }
-
-    public void setLng(double lng) {
-        this.lng = lng;
-    }
 
     public double getTemp() {
         return temp;
@@ -42,14 +21,6 @@ public class Sensor {
 
     public void setTemp(double temp) {
         this.temp = temp;
-    }
-
-    public double getHumdi() {
-        return humdi;
-    }
-
-    public void setHumdi(double humdi) {
-        this.humdi = humdi;
     }
 
     public double getNoise() {

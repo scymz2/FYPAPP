@@ -36,10 +36,9 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.id.setText("Sensor "+position);
-        holder.latitude.setText(String.valueOf(sensors.get(position).getLat()));
-        holder.longitude.setText(String.valueOf(sensors.get(position).getLng()));
         holder.temperature.setText(String.valueOf(sensors.get(position).getTemp()));
-        holder.humidity.setText(String.valueOf(sensors.get(position).getHumdi()));
+        holder.light.setText(String.valueOf(sensors.get(position).getLight()));
+        holder.sound.setText(String.valueOf(sensors.get(position).getNoise()));
 
     }
 
@@ -50,14 +49,13 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, latitude, longitude, temperature, humidity;
+        TextView id, light, sound, temperature;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.textView7);
-            latitude = itemView.findViewById(R.id.latitude);
-            longitude = itemView.findViewById(R.id.longitude);
             temperature = itemView.findViewById(R.id.temperature);
-            humidity = itemView.findViewById(R.id.humidity);
+            light = itemView.findViewById(R.id.light);
+            sound = itemView.findViewById(R.id.sound);
         }
     }
 }

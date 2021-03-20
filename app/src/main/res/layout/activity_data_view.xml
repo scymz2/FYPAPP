@@ -29,6 +29,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/webView1"/>
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
