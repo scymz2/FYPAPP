@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //tool
-        tool = findViewById(R.id.train);
+        tool = findViewById(R.id.quiz);
         tool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

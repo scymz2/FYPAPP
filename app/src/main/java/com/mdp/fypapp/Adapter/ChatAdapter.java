@@ -1,73 +1,90 @@
 package com.mdp.fypapp.Adapter;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import com.mdp.fypapp.Date.DateToString;
 import com.mdp.fypapp.Model.Chat;
 import com.mdp.fypapp.R;
 
+import org.apache.http.client.utils.DateUtils;
+
 import java.util.List;
-
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-
-    private Context context;
-    private List<Chat> mChat;
-
-    public static final int MSG_TYPE_LEFT = 0;
-    public static  final int MSG_TYPE_RIGHT = 1;
-
-    public ChatAdapter(Context context, List<Chat> mChat) {
-        this.context = context;
-        this.mChat = mChat;
+public class ChatAdapter extends BaseAdapter {
+    private List<Chat> list;
+    public ChatAdapter(List<Chat> list) {
+        this.list = list;
     }
 
-    @NonNull
     @Override
-    public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType == MSG_TYPE_RIGHT){
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent,false);
-            return new ChatAdapter.ViewHolder(view);
-        }else{
-            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent,false);
-            return new ChatAdapter.ViewHolder(view);
+    public int getCount() {
+        return list.isEmpty() ? 0 : list.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return list.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Chat chatMessage = list.get(position);
+        // receive：0，send：1
+        if (chatMessage.getType() == Chat.Type.INCOUNT) {
+            return 0;
         }
+        return 1;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
-
-        Chat chat = mChat.get(position);
-        holder.show_message.setText(chat.getMessage());
-
+    public int getViewTypeCount() {
+        return 2;
     }
 
+    @SuppressLint("InflateParams")
     @Override
-    public int getItemCount() {
-        return mChat.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView show_message;
-
-        public ViewHolder(@NonNull View itemView){
-            super(itemView);
-
-            show_message = itemView.findViewById(R.id.show_message);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Chat chatMessage = list.get(position);
+        if (convertView == null) {
+            ViewHolder viewHolder = null;
+            // load
+            if (getItemViewType(position) == 0) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.chat_item_left, null);
+                viewHolder = new ViewHolder();
+                viewHolder.time = (TextView) convertView
+                        .findViewById(R.id.left_time);
+                viewHolder.message = (TextView) convertView
+                        .findViewById(R.id.left_message);
+            } else {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(
+                        R.layout.chat_item_right, null);
+                viewHolder = new ViewHolder();
+                viewHolder.time = (TextView) convertView
+                        .findViewById(R.id.right_time);
+                viewHolder.message = (TextView) convertView
+                        .findViewById(R.id.right_message);
+            }
+            convertView.setTag(viewHolder);
         }
+
+        // set data
+        ViewHolder vh = (ViewHolder) convertView.getTag();
+        vh.time.setText(DateToString.dateToString(chatMessage.getDate(), 0));
+        vh.message.setText(chatMessage.getMessage());
+        return convertView;
     }
 
-    @Override
-    public int getItemViewType(int position){
-        if(mChat.get(position).getIsBot() == 0){
-            return MSG_TYPE_RIGHT;
-        }else{
-            return MSG_TYPE_LEFT;
-        }
+    private class ViewHolder {
+        private TextView time, message;
     }
 }

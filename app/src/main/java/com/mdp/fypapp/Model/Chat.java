@@ -1,34 +1,39 @@
 package com.mdp.fypapp.Model;
 
+import android.renderscript.Type;
+
+import java.util.Date;
+
 public class Chat {
 
-    private int isBot;
     private String message;
-    private boolean isReceived;
+    private Date date;
+    private Type type;
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Chat(String message, Date date, Type type) {
+        this.message = message;
+        this.date = date;
+        this.type = type;
+    }
 
     public Chat(){}
 
-    public Chat(int isBot, String message, Boolean isReceived){
-        this.isBot = isBot;
-        this.message = message;
-        this.isReceived = isReceived;
-    }
-
-    public boolean isReceived() {
-        return isReceived;
-    }
-
-    public void setReceived(boolean received) {
-        isReceived = received;
-    }
-
-    public int getIsBot() {
-        return isBot;
-    }
-
-    public void setIsBot(int isBot) {
-        this.isBot = isBot;
-    }
 
     public String getMessage() {
         return message;
@@ -36,5 +41,9 @@ public class Chat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public enum Type {
+        INCOUNT, OUTCOUNT
     }
 }

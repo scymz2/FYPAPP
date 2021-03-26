@@ -1,56 +1,44 @@
 package com.mdp.fypapp.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
+import android.speech.RecognizerIntent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.api.gax.core.FixedCredentialsProvider;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.auth.oauth2.ServiceAccountCredentials;
-import com.google.cloud.dialogflow.v2.DetectIntentResponse;
-import com.google.cloud.dialogflow.v2.QueryInput;
-import com.google.cloud.dialogflow.v2.SessionName;
-import com.google.cloud.dialogflow.v2.SessionsClient;
-import com.google.cloud.dialogflow.v2.SessionsSettings;
-import com.google.cloud.dialogflow.v2.TextInput;
-import com.google.common.collect.Lists;
 import com.mdp.fypapp.Adapter.ChatAdapter;
-import com.mdp.fypapp.Interfaces.BotReply;
+import com.mdp.fypapp.Http.HttpRequest;
 import com.mdp.fypapp.Model.Chat;
 import com.mdp.fypapp.R;
-import com.mdp.fypapp.helpers.SendMessageInBg;
 
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
-public class ChatbotActivity extends AppCompatActivity implements BotReply {
+public class ChatbotActivity extends AppCompatActivity{
 
-    RecyclerView recyclerView;
-    TextView username;
-    ImageView imageView;
-    ImageButton sendBtn;
-    EditText editText;
-    List<Chat> chatList = new ArrayList<>();
+    private List<Chat> list;
+    private ListView listview;
+    private EditText input;
+    private Button send;
+    private ChatAdapter chatAdapter;
+    private Chat chatMessage = null;
+    private ImageView backToMain;
+    private ImageView microphone;
+    private EditText inputText;
 
-    ChatAdapter chatAdapter;
-
-    //dialog flow
-    private SessionsClient sessionsClient;
-    private SessionName sessionName;
-    private String uuid = UUID.randomUUID().toString();
-    private String TAG = "Chatbotactivity";
+    private static final int RECOGNIZER_RESULT = 1;
 
 
     @Override
@@ -58,78 +46,112 @@ public class ChatbotActivity extends AppCompatActivity implements BotReply {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatbot);
 
-        imageView = findViewById(R.id.robotAvatar);
-        username = findViewById(R.id.robotName);
-        sendBtn = findViewById(R.id.btn_send);
-        editText = findViewById(R.id.text_send);
+        microphone = findViewById(R.id.microphone);
+        inputText = findViewById(R.id.chat_input_message);
 
-        recyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        microphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speach to text");
+                startActivityForResult(i, RECOGNIZER_RESULT);
+            }
+        });
 
-        chatAdapter = new ChatAdapter(this, chatList);
-        recyclerView.setAdapter(chatAdapter);
-
-        sendBtn.setOnClickListener(new View.OnClickListener(){
+        backToMain = findViewById(R.id.backToMain);
+        backToMain.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                String message = editText.getText().toString();
-                if(!message.isEmpty()){
-                    chatList.add(new Chat(0, message,false));
-                    editText.setText("");
-                    sendMessageToBot(message);
-                    Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
-                    Objects.requireNonNull(recyclerView.getLayoutManager())
-                .scrollToPosition(chatList.size()-1);
-                }else{
-                    Toast.makeText(ChatbotActivity.this, "Please enter text!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        initView();
+        initListener();
+        initData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent data) {
+        if(requestCode == RECOGNIZER_RESULT && requestCode == RESULT_OK){
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            inputText.setText(matches.get(0).toString());
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void initView() {
+        listview = findViewById(R.id.listview);
+        input = findViewById(R.id.chat_input_message);
+        send = findViewById(R.id.send);
+    }
+
+    private void initListener() {
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.send:
+                        chat();
+                        break;
                 }
             }
         });
-        setUpBot();
     }
 
-    private void setUpBot(){
-        try{
-            InputStream stream = this.getResources().openRawResource(R.raw.credential);
-            GoogleCredentials credentials = GoogleCredentials.fromStream(stream)
-                    .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"));
-            String projectId = ((ServiceAccountCredentials) credentials).getProjectId();
+    private void initData(){
+        list = new ArrayList<Chat>();
+        list.add(new Chat("Hi I am Norman! a chat bot", new Date(), Chat.Type.INCOUNT));
+        list.add(new Chat("You can ask me anything!", new Date(), Chat.Type.INCOUNT));
+        list.add(new Chat("If you have something to report, please type in 'Report:' and I will respond you!", new Date(), Chat.Type.INCOUNT));
+                chatAdapter = new ChatAdapter(list);
+        listview.setAdapter(chatAdapter);
+        chatAdapter.notifyDataSetChanged();
+    }
 
-            SessionsSettings.Builder settingsBuilder = SessionsSettings.newBuilder();
-            SessionsSettings sessionsSettings = settingsBuilder.setCredentialsProvider(
-                    FixedCredentialsProvider.create(credentials)).build();
-            sessionsClient = SessionsClient.create(sessionsSettings);
-            sessionName = SessionName.of(projectId, uuid);
-
-            Log.d(TAG, "projectId: " + projectId);
-        }catch (Exception e){
-            Log.d(TAG, "setUpBot" + e.getMessage());
+    private void chat(){
+        final String send_message = input.getText().toString().trim();
+        if (TextUtils.isEmpty(send_message)) {
+            Toast.makeText(ChatbotActivity.this, "please type something...",
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
+        Chat sendChat = new Chat();
+        sendChat.setMessage(send_message);
+        sendChat.setDate(new Date());
+        sendChat.setType(Chat.Type.OUTCOUNT);
+        list.add(sendChat);
+        chatAdapter.notifyDataSetChanged();
+        input.setText("");
+
+        new Thread(){
+            public void run(){
+                Chat chat = HttpRequest.sendMessage(send_message);
+                Message message = new Message();
+                message.what = 0X1;
+                message.obj = chat;
+                handler.sendMessage(message);
+            };
+        }.start();
     }
 
-    private void sendMessageToBot(String message){
-        QueryInput input = QueryInput.newBuilder()
-                .setText(TextInput.newBuilder().setText(message).setLanguageCode("en-US")).build();
-        new SendMessageInBg(this, sessionName, sessionsClient, input).execute();
-    }
-
-
-    @Override
-    public void callback(DetectIntentResponse response) {
-        if(response != null){
-            String botReply = response.getQueryResult().getFulfillmentText();
-            if(!botReply.isEmpty()){
-                chatList.add(new Chat(1,botReply,true));
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            if (msg.what == 0x1) {
+                if (msg.obj != null) {
+                    chatMessage = (Chat) msg.obj;
+                }
+                //更新数据
+                list.add(chatMessage);
                 chatAdapter.notifyDataSetChanged();
-                Objects.requireNonNull(recyclerView.getLayoutManager()).scrollToPosition(chatList.size()-1);
-            }else{
-                Toast.makeText(this,"something went wrong", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Toast.makeText(this, "failed to connect!", Toast.LENGTH_SHORT).show();
-        }
-    }
+        };
+    };
+
+
+
+
 }
