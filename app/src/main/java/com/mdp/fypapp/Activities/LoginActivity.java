@@ -9,11 +9,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +23,9 @@ import com.mdp.fypapp.R;
 public class LoginActivity extends AppCompatActivity {
 
     EditText userETLogin, passETLogin;
-    Button loginBtn, registerBtn;
+    Button loginBtn;
+    TextView registerBtn;
+    ImageView imageView;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
@@ -51,6 +54,9 @@ public class LoginActivity extends AppCompatActivity {
         passETLogin = findViewById(R.id.passLoginText);
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn = findViewById(R.id.registerBtn);
+        imageView = findViewById(R.id.imageView13);
+
+        imageView.setImageResource(R.drawable.ic_wave);
 
         //Firebase Auth
         auth = FirebaseAuth.getInstance();
@@ -60,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });

@@ -9,6 +9,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
     //Widgets
     EditText userET, passET, emailET;
     Button registerBtn;
+    TextView loginBtn;
+    ImageView imageView;
 
     //Firebase
     FirebaseAuth auth;
@@ -42,7 +46,11 @@ public class RegisterActivity extends AppCompatActivity {
         userET = findViewById(R.id.userEditText);
         passET = findViewById(R.id.passEditText);
         emailET = findViewById(R.id.emailEditText);
-        registerBtn = findViewById(R.id.buttonRegister);
+        registerBtn = findViewById(R.id.registerBtn);
+        loginBtn = findViewById(R.id.loginBtn);
+        imageView = findViewById(R.id.imageView13);
+
+        imageView.setImageResource(R.drawable.ic_wave);
 
         //FireBase Auth
         auth = FirebaseAuth.getInstance();
@@ -61,6 +69,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }else{
                     RegisterNow(username_text, email_text, pass_text);
                 }
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(RegisterActivity.this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
 
