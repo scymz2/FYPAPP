@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Isn't life a collection of weird quizzes with \n no anwsers to half the questions"
         android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome To Quiz"
-        android:textSize="22dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
         android:layout_marginBottom="16dp"
@@ -47,6 +48,7 @@
         android:textColor="#FFF"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textSize="16sp"
         android:text="Get Started"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="@+id/textSubHeader"
@@ -62,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@drawable/ic_wave" />
+        android:src="@drawable/ic_wave"/>
 
     <TextView
         android:id="@+id/skip"

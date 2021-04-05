@@ -9,15 +9,21 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mdp.fypapp.R;
 
 
@@ -26,46 +32,57 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int ERR_DIALOG_REQUEST = 9001;
 
-    private WebView webView;
     private CardView tool;
     private CardView sensor;
     private CardView chatbot;
     private CardView data;
-    private ProgressBar progressBar;
+    private FloatingActionButton chatBtn;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private MaterialToolbar actionBar;
+    private DrawerLayout mainDrawer;
+    private TextView status_tv;
+    private ImageView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        status = findViewById(R.id.status);
+        status_tv = findViewById(R.id.status_tv);
+
         //google service
         if(isServiceOK()){
-            Toast.makeText(this, "Connected!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Connected!", Toast.LENGTH_SHORT).show();
+            status.setImageResource(R.drawable.connected);
+            status_tv.setText("connected");
+
         }
 
-        // progress bar
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setMax(100);
+        actionBar = findViewById(R.id.appBar);
+        mainDrawer = findViewById(R.id.mainDrawer);
+        setUpDrawerLayout();
 
-        // webview
-        webView = findViewById(R.id.weather);
-        webView.setVerticalScrollBarEnabled(false);
 
-        webView.loadUrl("https://weather.com/weather/today/l/29.80,121.56?par=google&temp=f");
-        webView.setWebViewClient(new WebViewClient(){
+
+
+        //chatbtn
+        chatBtn = findViewById(R.id.btnBot);
+        chatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPageCommitVisible(WebView view, String url) {
-                progressBar.setVisibility(View.INVISIBLE);
-                super.onPageCommitVisible(view, url);
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ChatbotActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
+
 
         //tool
         tool = findViewById(R.id.quiz);
         tool.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ChartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent i = new Intent(MainActivity.this, QuizActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });
@@ -102,6 +119,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setUpDrawerLayout(){
+        setSupportActionBar(actionBar);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainDrawer, R.string.app_name, R.string.app_name);
+        actionBarDrawerToggle.syncState();
     }
 
     public boolean isServiceOK(){

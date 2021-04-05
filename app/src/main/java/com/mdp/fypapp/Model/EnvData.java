@@ -1,4 +1,4 @@
-package com.mdp.fypapp.Data;
+package com.mdp.fypapp.Model;
 
 import java.util.ArrayList;
 import java.util.List;

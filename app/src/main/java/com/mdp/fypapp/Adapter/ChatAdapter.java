@@ -11,7 +11,6 @@ import com.mdp.fypapp.Date.DateToString;
 import com.mdp.fypapp.Model.Chat;
 import com.mdp.fypapp.R;
 
-import org.apache.http.client.utils.DateUtils;
 
 import java.util.List;
 public class ChatAdapter extends BaseAdapter {

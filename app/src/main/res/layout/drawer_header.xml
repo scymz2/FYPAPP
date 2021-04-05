@@ -5,14 +5,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     android:padding="16dp">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/avatar1"/>
 
     <TextView
         android:textSize="18sp"

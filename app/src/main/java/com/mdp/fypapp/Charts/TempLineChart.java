@@ -1,7 +1,6 @@
 package com.mdp.fypapp.Charts;
 
 import android.content.Context;
-import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.github.abel533.echarts.Option;
@@ -15,7 +14,7 @@ import com.github.abel533.echarts.json.GsonOption;
 import com.github.abel533.echarts.series.Line;
 import com.github.abel533.echarts.style.ItemStyle;
 import com.github.abel533.echarts.style.LineStyle;
-import com.mdp.fypapp.Data.EnvData;
+import com.mdp.fypapp.Model.EnvData;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -18,7 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.mdp.fypapp.Charts.TempLineChart;
-import com.mdp.fypapp.Data.EnvData;
+import com.mdp.fypapp.Model.EnvData;
 import com.mdp.fypapp.R;
 
 import java.util.ArrayList;
