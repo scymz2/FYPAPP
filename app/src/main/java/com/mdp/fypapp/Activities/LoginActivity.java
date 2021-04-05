@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     Button loginBtn;
     TextView registerBtn;
     ImageView imageView;
+    ProgressBar progressBar;
 
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
@@ -55,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         registerBtn = findViewById(R.id.registerBtn);
         imageView = findViewById(R.id.imageView13);
+        progressBar = findViewById(R.id.progressBar);
 
         imageView.setImageResource(R.drawable.ic_wave);
 
@@ -83,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(TextUtils.isEmpty(email_text) || TextUtils.isEmpty(pass_text)){
                     Toast.makeText(LoginActivity.this, "Please fill the fields", Toast.LENGTH_SHORT).show();
                 }else{
+                    progressBar.bringToFront();
+                    progressBar.setVisibility(View.VISIBLE);
+                    loginBtn.setClickable(false);
                     auth.signInWithEmailAndPassword(email_text, pass_text)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override

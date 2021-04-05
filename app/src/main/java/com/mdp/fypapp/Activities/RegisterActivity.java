@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button registerBtn;
     TextView loginBtn;
     ImageView imageView;
+    ProgressBar progressBar;
 
     //Firebase
     FirebaseAuth auth;
@@ -49,6 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.registerBtn);
         loginBtn = findViewById(R.id.loginBtn);
         imageView = findViewById(R.id.imageView13);
+        progressBar = findViewById(R.id.progressBar);
 
         imageView.setImageResource(R.drawable.ic_wave);
 
@@ -89,6 +92,9 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        progressBar.bringToFront();
+                        progressBar.setVisibility(View.VISIBLE);
+
                         if(task.isSuccessful()){
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             String userid = firebaseUser.getUid();
@@ -102,6 +108,9 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("imageURL","default");
                             hashMap.put("status", "offline");
                             hashMap.put("credit", "0");
+                            hashMap.put("rank", "--");
+                            hashMap.put("type", "user");
+                            hashMap.put("phone", "--");
 
                             // Opening the main activity after success registration
                             myRef.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

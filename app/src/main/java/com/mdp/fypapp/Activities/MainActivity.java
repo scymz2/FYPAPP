@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mainDrawer;
     private TextView status_tv;
     private ImageView status;
+    private ImageView avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
         actionBar = findViewById(R.id.appBar);
         mainDrawer = findViewById(R.id.mainDrawer);
         setUpDrawerLayout();
+
+
+
+        //profile
+        avatar = findViewById(R.id.avatar);
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
 
 
 
