@@ -17,11 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <activity android:name=".Activities.QuestionActivity"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".Activities.Main2Activity" >
-        </activity>
+        <activity android:name=".Activities.ProfileActivity"></activity>
+        <activity android:name=".Loading.ChatbotLoadingActivity" />
+        <activity android:name=".Loading.MapLoadingActivity" />
+        <activity
+            android:name=".Activities.QuestionActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.Main2Activity" />
         <activity android:name=".Activities.QuizActivity" />
         <activity android:name=".Activities.ChartActivity" />
         <activity android:name=".Activities.RegisterActivity" />

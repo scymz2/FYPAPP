@@ -40,7 +40,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 Date date = new Date(System.currentTimeMillis());
-                simpleDateFormat.format(date);
                 String currentDate = simpleDateFormat.format(date);
                 Intent i = new Intent(QuizActivity.this, QuestionActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 i.putExtra("DATE", currentDate);

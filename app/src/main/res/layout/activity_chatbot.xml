@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3F5F6"
+    android:background="@drawable/gradient_register"
     android:orientation="vertical" >
     <!-- 头部 -->
     <RelativeLayout
@@ -33,7 +33,7 @@
     <RelativeLayout
         android:id="@+id/chat_bottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimaryDark" >
         <!--输入框-->
@@ -50,11 +50,10 @@
             android:layout_width="280dp"
             android:background="@drawable/textfield"
             android:layout_height="50dp"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="45dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:gravity="center" />
         <!-- 发送按钮 -->
         <Button

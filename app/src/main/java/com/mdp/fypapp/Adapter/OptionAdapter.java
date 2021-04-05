@@ -44,7 +44,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.MyViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, options.get(position),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, options.get(position),Toast.LENGTH_SHORT).show();
                 question.setAnswer(options.get(position));
                 notifyDataSetChanged();
             }
