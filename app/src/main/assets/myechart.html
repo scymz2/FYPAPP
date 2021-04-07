@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <style>
         html, body {
-        height: 100%;
+        height: 80%;
         }
         body {
         background-color: #fff;
@@ -73,7 +73,7 @@
                         formatter: '{value}'
                     },
                     min: 0,
-                    max: 40//在此设置范围
+                    max: 100//在此设置范围
                 },
 
                 dataZoom: [
@@ -95,11 +95,12 @@
                     name: 'temperature/℃',
                     type: 'line',
                     smooth: true,
+                    color: '#4992ff',
                     data: obj.temp, //动态展示运动步数数据
                     lineStyle: {
                         normal: {
                             width: 3,
-                            shadowColor: 'rgba(0,0,0,0.4)',
+                            shadowColor: 'rgba(0,0,0,0)',
                             shadowBlur: 10,
                             shadowOffsetY: 10
                         }

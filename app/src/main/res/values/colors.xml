@@ -3,4 +3,5 @@
     <color name="colorPrimary">#465b86</color>
     <color name="colorPrimaryDark">#00326b</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="chartBackground">#0D0920</color>
 </resources>

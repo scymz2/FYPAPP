@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        html, body {
+        width: 96%;
+        }
+        body {
+        background-color: #fff;
+        color: #fff;
+        font-family: "Microsoft YaHei";
+        }
+        .bg {
+        }
+        .item {
+        // padding: 30px 30px 50px;
+        }
+    </style>
+</head>
+
+<script src="js/echarts.common.min.js"></script>
+
+<body>
+
+<div id="lineChart" style="float: center; width: '95%';height: 230px;margin-bottom: 35px"></div>
+
+<script type="text/javascript">
+
+var option;
+var myLineChart;
+
+
+
+function createLineChart(obj){
+    option = {
+    color: ['#5470c6', '#91cc75'],
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    legend:{
+        left: 'auto',
+        padding: [0,0,0,15],
+        data: ['Accessed Times', 'Total Accessed Times']
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: [
+        {
+            name: 'Day',
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis: [
+        {
+            name: 'Times',
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: 'Accessed Times',
+            type: 'bar',
+            barWidth: '30%',
+            data: [3, 5, 7, 4, 5, 4, 8]
+        },
+        {
+            name: 'Total Accessed Times',
+            type: 'bar',
+            barWidth: '30%',
+            data: [13, 15, 17, 14, 15, 14, 18]
+        }
+    ]
+};
+}
+
+function createChart(type, json1){
+    createLineChart(json1);
+    myLineChart = echarts.init(document.getElementById('lineChart'));
+    myLineChart.setOption(option);
+}
+
+
+
+
+</script>
+
+</body>

@@ -45,6 +45,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final float DEFAULT_ZOOM = 16f;
 
     private Boolean mLocationPermissionGranted = false;
+    private TextView serial, temp, light, humidity;
     private GoogleMap gMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
@@ -106,25 +107,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         gMap = googleMap;
 
-        if(gMap != null){
-            gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-                @Override
-                public View getInfoWindow(Marker marker) {
-                    return null;
-                }
-
-                @Override
-                public View getInfoContents(Marker marker) {
-
-                    View row = getLayoutInflater().inflate(R.layout.custom_info_window,null);
-                    TextView number = findViewById(R.id.number);
-                    TextView status = findViewById(R.id.status);
-
-
-                    return row;
-                }
-            });
-        }
 
         //set ui modules for the Map
 
@@ -155,22 +137,49 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
         gMap.addMarker(new MarkerOptions().position(new LatLng(29.800060, 121.564924)).title("Marker1")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
 
 
         gMap.addMarker(new MarkerOptions().position(new LatLng(29.798608, 121.561029)).title("Marker2")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
 
 
+        //动态展示infowindow的数据
+        gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if(marker.getTitle().equals("Marker")){
+                    if(gMap != null){
+                        gMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                            @Override
+                            public View getInfoWindow(Marker marker) {
+                                return null;
+                            }
 
-
+                            @Override
+                            public View getInfoContents(Marker marker) {
+                                View row = getLayoutInflater().inflate(R.layout.custom_info_window,null);
+                                return row;
+                            }
+                        });
+                    }
+                    marker.showInfoWindow();
+                }
+                return true;
+            }
+        });
 
 
         gMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent i = new Intent(MapActivity.this, StationActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                Log.d(TAG, "onInfoWindowClick: " + marker.getTitle().equals("Marker"));
+                if(marker.getTitle().equals("Marker")) {
+                    Intent i = new Intent(MapActivity.this, StationActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(MapActivity.this, "Connection Lost", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

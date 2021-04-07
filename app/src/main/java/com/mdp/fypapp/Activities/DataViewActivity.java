@@ -3,19 +3,24 @@ package com.mdp.fypapp.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.mdp.fypapp.Charts.EchartsDataBean;
 import com.mdp.fypapp.Charts.TempLineChart;
 import com.mdp.fypapp.Model.EnvData;
 import com.mdp.fypapp.R;
@@ -28,7 +33,8 @@ public class DataViewActivity extends AppCompatActivity {
 
     private static String TAG = "dataviewactivity";
     private ProgressBar progressBar;
-    WebView webView1;
+    private FloatingActionButton chatbot;
+    WebView webView1, webView2, webView3, webView4;
     DatabaseReference reference;
     List<EnvData> dataList = new ArrayList<>();
 
@@ -37,54 +43,84 @@ public class DataViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_view);
         webView1 = findViewById(R.id.webView1);
+        webView2 = findViewById(R.id.webView2);
+        webView3 = findViewById(R.id.webView3);
+        webView4 = findViewById(R.id.webView4);
+        chatbot = findViewById(R.id.btnBot);
 
-        // progress bar
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setMax(100);
-
-        //获取指定格式的数据
-        reference = FirebaseDatabase.getInstance().getReference("IoTDevices").child("station1");
-        reference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        chatbot.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()){
-                    Log.e(TAG, "Error getting data", task.getException());
-                }else{
-                    Log.d(TAG, String.valueOf(task.getResult().getValue()));
-                    for(DataSnapshot child: task.getResult().getChildren()){
-                        Log.d(TAG, String.valueOf(child.getValue()));
-                        EnvData data = child.getValue(EnvData.class);
-                        dataList.add(data);
-                    }
-                }
-                Log.d(TAG, "onComplete: dataloaded!");
-                webView1.reload();
+            public void onClick(View v) {
+                Intent i = new Intent(DataViewActivity.this, ChatbotActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
-        loadChart(dataList);
+
+
+
+//        //获取指定格式的数据
+//        reference = FirebaseDatabase.getInstance().getReference("IoTDevices").child("station1");
+//        reference.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                if(!task.isSuccessful()){
+//                    Log.e(TAG, "Error getting data", task.getException());
+//                }else{
+//                    Log.d(TAG, String.valueOf(task.getResult().getValue()));
+//                    for(DataSnapshot child: task.getResult().getChildren()){
+//                        Log.d(TAG, String.valueOf(child.getValue()));
+//                        EnvData data = child.getValue(EnvData.class);
+//                        dataList.add(data);
+//                    }
+//                }
+//                Log.d(TAG, "onComplete: dataloaded!");
+//                webView1.reload();
+//            }
+//        });
+        loadChart(webView1, 1);
+        loadChart(webView2, 2);
+        loadChart(webView3, 3);
+        loadChart(webView4, 4);
 
     }
 
-    private void loadChart(List dataList) {
+    private void loadChart(WebView webView, int i) {
 
-        //进行webview设置
-        WebSettings webSettings1 = webView1.getSettings();
-
-        webSettings1.setJavaScriptEnabled(true);
-        webSettings1.setJavaScriptCanOpenWindowsAutomatically(true);
-        webSettings1.setSupportZoom(true);
-        webSettings1.setDisplayZoomControls(true);
-
-        //给javascript传递生成的mylineChart的option
-        webView1.addJavascriptInterface(new TempLineChart(this,dataList),"myLine");
-        webView1.loadUrl("file:///android_asset/lineChart.html");
-        webView1.setWebViewClient(new WebViewClient(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setAllowFileAccess(true);
+        switch(i){
+            case 1:
+                webView.loadUrl("file:///android_asset/loginChart.html");
+                break;
+            case 2:
+                webView.loadUrl("file:///android_asset/questionChart.html");
+                break;
+            case 3:
+                webView.loadUrl("file:///android_asset/questionChart1.html");
+                break;
+            case 4:
+                webView.loadUrl("file:///android_asset/mlChart.html");
+        }
+        //Bar.setVisibility(View.GONE);
+        webView.setWebViewClient(new WebViewClient() {
             @Override
-            public void onPageCommitVisible(WebView view, String url) {
-                progressBar.setVisibility(View.INVISIBLE);
-                super.onPageCommitVisible(view, url);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                //最好在这里调用js代码 以免网页未加载完成
+                view.loadUrl("javascript:createChart('line'," + EchartsDataBean.getInstance().getEchartsLineJson() + ");");
             }
         });
-        Log.d(TAG, "loadChart: finish!");
     }
 }

@@ -9,7 +9,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark" >
+        android:background="#054791" >
         <ImageView
             android:id="@+id/backToMain"
             android:layout_width="27dp"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryDark" >
+        android:background="#054791" >
         <!--输入框-->
         <ImageView
             android:id="@+id/microphone"
@@ -57,7 +57,7 @@
             android:gravity="center" />
         <!-- 发送按钮 -->
         <Button
-            android:background="@drawable/button"
+            android:background="@drawable/button1"
             android:id="@+id/send"
             android:layout_width="85dp"
             android:layout_height="48dp"

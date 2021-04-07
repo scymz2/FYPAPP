@@ -25,8 +25,12 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mdp.fypapp.Loading.ChatbotLoadingActivity;
+import com.mdp.fypapp.Loading.DataViewLoadingActivity;
 import com.mdp.fypapp.Loading.MapLoadingActivity;
 import com.mdp.fypapp.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private MaterialToolbar actionBar;
     private DrawerLayout mainDrawer;
-    private TextView status_tv;
+    private TextView status_tv, time;
     private ImageView status;
     private ImageView avatar;
 
@@ -53,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         status = findViewById(R.id.status);
         status_tv = findViewById(R.id.status_tv);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date(System.currentTimeMillis());
+
+        time = findViewById(R.id.currenttime);
+        time.setText(simpleDateFormat.format(date));
 
         //google service
         if(isServiceOK()){
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, DataViewActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent i = new Intent(MainActivity.this, DataViewLoadingActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });

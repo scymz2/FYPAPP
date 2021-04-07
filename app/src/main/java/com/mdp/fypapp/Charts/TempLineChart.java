@@ -1,6 +1,7 @@
 package com.mdp.fypapp.Charts;
 
 import android.content.Context;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import com.github.abel533.echarts.Option;
@@ -22,6 +23,7 @@ import java.util.List;
 
 public class TempLineChart {
 
+    private final String TAG = this.getClass().getName();
     Context mContext;
     List<EnvData> lineDatas;
 
@@ -44,8 +46,9 @@ public class TempLineChart {
         //创建option对象
         GsonOption option = new GsonOption();
         //设置图标标题，并且居中显示
-        option.title().text("Temperature").x(X.center);
+        //option.title().text("Temperature").x(X.center);
         //设置图例，居中显示
+        option.backgroundColor("#00326b");
         option.legend().data("station1").x(X.right).y(Y.top).borderWidth(0);
         //设置y轴为值轴，并且不显示y轴，最大值设置400，最小值-100
 
@@ -62,6 +65,10 @@ public class TempLineChart {
                 .axisLine(new AxisLine().onZero(true))
                 .boundaryGap(true);
 
+        CategoryAxis categoryAxisY = new CategoryAxis()
+                .splitLine(new SplitLine().show(false))
+                .axisLine(new AxisLine().onZero(true));
+
 
 
         //不显示表格边框
@@ -76,12 +83,14 @@ public class TempLineChart {
             Date date = new Date(lineData.getTime());
             SimpleDateFormat sfd = new SimpleDateFormat("HH:mm");
             sfd.format(date);
+            Log.d(TAG, "createLineChartOptions: " + date);
             categoryAxisX.data(date);
             //日期对应的数据
             line.data(lineData.getTemperature());
         }
         //设置x轴为类目轴
         option.xAxis(categoryAxisX);
+        option.yAxis(categoryAxisY);
         //设置数据
 
         option.series(line);

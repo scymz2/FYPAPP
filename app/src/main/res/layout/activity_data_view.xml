@@ -1,62 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_register"
+    tools:context=".Activities.DataViewActivity">
 
-    <LinearLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnBot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/android"
+        android:tint="#fff"
+        android:clickable="true"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_register"
-        android:orientation="vertical"
-        android:paddingBottom="150dp">
-
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:layout_margin="12dp"
-            tools:ignore="WebViewLayout">
-
-            <WebView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/webView1"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="@style/Widget.AppCompat.ProgressBar"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:layout_margin="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                tools:ignore="MissingConstraints">
 
-        </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/avatar1"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp"/>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:layout_margin="12dp"
-            tools:ignore="WebViewLayout">
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginRight="20dp">
+                            <TextView
+                                android:layout_marginTop="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:textColor="#667B93"
+                                android:text="Rank"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textSize="18sp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="35dp"/>
 
-            <WebView
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp">
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:textColor="#667B93"
+                                android:text="Credit"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="10"
+                                android:textSize="18sp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="35dp"/>
+
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginLeft="20dp">
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="12dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                android:textColor="#667B93"
+                                android:text="Type"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="admin"
+                                android:textSize="18sp"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="35dp"/>
+
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="Mochuan Zhan"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:textSize="17sp"
+                            android:text="Author / Admin"
+                            android:textColor="#696969"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="About"
+                            android:textSize="18sp"
+                            android:layout_marginLeft="10dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:text=" This is the author of this application, the tasks including UI / UX design, front-end coding, back-end coding and the deployment of the database."
+                            android:textSize="15sp"
+                            android:textColor="#696969"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Access Times"
+                            android:textSize="18sp"
+                            android:layout_marginLeft="10dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
+
+                    <WebView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/webView1"
+                        tools:ignore="WebViewLayout" />
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+            </androidx.cardview.widget.CardView>
+
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_margin="15dp"
+                        android:layout_width="380dp"
+                        android:layout_height="410dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        tools:ignore="MissingConstraints">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Question1 Answers"
+                                android:textSize="18sp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="20dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorPrimaryDark"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:textSize="16sp"
+                                android:text="How is the weather today?"
+                                android:textColor="#696969"/>
+
+                            <WebView
+                                android:id="@+id/webView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="WebViewLayout" />
+
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_margin="15dp"
+                        android:layout_width="380dp"
+                        android:layout_height="410dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        tools:ignore="MissingConstraints">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Question2 Answers"
+                                android:textSize="18sp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="20dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorPrimaryDark"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:textSize="16sp"
+                                android:text="How do you feel?"
+                                android:textColor="#696969"/>
+
+                            <WebView
+                                android:id="@+id/webView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="WebViewLayout" />
+
+
+                        </LinearLayout>
+
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
+
+
+            </HorizontalScrollView>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/webView2"/>
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                tools:ignore="MissingConstraints">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Most Frequent topic with chatbot"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="This data is analyzed by using the NLP technique."
+                        android:textSize="15sp"
+                        android:textColor="#696969"/>
+
+                    <WebView
+                        android:id="@+id/webView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:ignore="WebViewLayout" />
+
+
+                </LinearLayout>
 
 
 
-    </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
 
 
 
@@ -66,4 +362,15 @@
 
 
 
-</ScrollView>
+
+
+        </GridLayout>
+
+
+
+    </ScrollView>
+
+
+
+
+</RelativeLayout>

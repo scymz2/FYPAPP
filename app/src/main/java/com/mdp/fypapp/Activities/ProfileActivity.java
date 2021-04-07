@@ -83,7 +83,6 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish();
     }
 
     private void showDialog(){

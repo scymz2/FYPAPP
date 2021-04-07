@@ -43,7 +43,7 @@ public class ChartActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setAllowFileAccess(true);
-        echart_show.loadUrl("file:///android_asset/myechart.html");
+        echart_show.loadUrl("file:///android_asset/barChart.html");
         echart_show.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

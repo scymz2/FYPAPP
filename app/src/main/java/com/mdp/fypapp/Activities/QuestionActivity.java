@@ -47,7 +47,7 @@ import java.util.Map;
 public class QuestionActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getName();
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<Quiz> quizzes = null;
     private Map<String, Question> questions = null;
     private int index = 0;
     private int credit;
