@@ -103,9 +103,7 @@ public class ChatbotActivity extends AppCompatActivity{
 
     private void initData(){
         list = new ArrayList<Chat>();
-        list.add(new Chat("Hi I am Norman! a chat bot", new Date(), Chat.Type.INCOUNT));
-        list.add(new Chat("You can ask me anything!", new Date(), Chat.Type.INCOUNT));
-        list.add(new Chat("If you have something to report, please type in 'Report:' and I will respond you!", new Date(), Chat.Type.INCOUNT));
+        list.add(new Chat("Hi, What is up?", new Date(), Chat.Type.INCOUNT));
                 chatAdapter = new ChatAdapter(list);
         listview.setAdapter(chatAdapter);
         chatAdapter.notifyDataSetChanged();

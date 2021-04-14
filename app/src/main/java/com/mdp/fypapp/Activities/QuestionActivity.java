@@ -26,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,6 +38,8 @@ import com.mdp.fypapp.Model.Quiz;
 import com.mdp.fypapp.Model.Result;
 import com.mdp.fypapp.R;
 
+import org.w3c.dom.Document;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +50,7 @@ import java.util.Map;
 public class QuestionActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getName();
-    private List<Quiz> quizzes = null;
+    private List<Quiz> quizzes = new ArrayList<>();
     private Map<String, Question> questions = null;
     private int index = 0;
     private int credit;
@@ -77,21 +80,8 @@ public class QuestionActivity extends AppCompatActivity {
         String date = getIntent().getStringExtra("DATE");
         Log.d(TAG, "setUpFirestore: " + date.toString());
         firebaseFirestore = FirebaseFirestore.getInstance();
+
         if(date != null) {
-            firebaseFirestore.collection("answers").whereEqualTo("userId", firebaseUser.getUid())
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        if(task.getResult() != null){
-                            Toast.makeText(QuestionActivity.this, "You have already answer all the quizzes!", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(QuestionActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                            finish();
-                        }
-                    }
-                }
-            });
 
             firebaseFirestore.collection("quizzes").whereEqualTo("title", date)
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
