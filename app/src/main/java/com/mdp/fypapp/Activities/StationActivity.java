@@ -68,6 +68,8 @@ public class StationActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(StationActivity.this, MapActivity.class);
+                startActivity(i);
                 finish();
             }
         });

@@ -13,6 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Activities.MapActivity" />
+
+    <RelativeLayout
+        android:id="@+id/locate"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/custom_selector"
+        android:clickable="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="105dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:src="@drawable/locate"/>
+
+    </RelativeLayout>
     
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -39,6 +57,96 @@
             android:id="@+id/search_text"
             android:background="@null"
             android:hint="Enter Address, City or Zip code"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:gravity="right"
+                android:layout_marginRight="65dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/Map"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:background="@drawable/custom_selector"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="StationMap"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="#535151"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/heatMap"
+                    android:orientation="horizontal"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:clickable="true"
+                    android:background="@drawable/custom_selector"
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="HeatMap"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="#535151"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/noiseMap"
+                    android:orientation="horizontal"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:clickable="true"
+                    android:background="@drawable/custom_selector"
+                    android:layout_toRightOf="@id/noiseMap"
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="NoiseMap"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="#535151"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
     </RelativeLayout>
 
 

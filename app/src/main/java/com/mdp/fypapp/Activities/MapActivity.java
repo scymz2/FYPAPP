@@ -1,6 +1,7 @@
 package com.mdp.fypapp.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import android.os.LocaleList;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +33,23 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
+import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.google.type.Color;
 import com.mdp.fypapp.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -45,9 +61,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final float DEFAULT_ZOOM = 16f;
 
     private Boolean mLocationPermissionGranted = false;
-    private TextView serial, temp, light, humidity;
+    private LinearLayout map, heat, noise;
+    private RelativeLayout locate;
     private GoogleMap gMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private TileOverlay overlay;
 
 
     @Override
@@ -55,7 +73,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        map = findViewById(R.id.Map);
+        heat = findViewById(R.id.heatMap);
+        noise = findViewById(R.id. noiseMap);
+        locate = findViewById(R.id.locate);
+
         getLocationPermission();
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(overlay != null){
+                    overlay.remove();
+                    addMarker();
+                }
+            }
+        });
+
+        heat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addHeatMap();
+            }
+        });
+
+        locate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mapLocate();
+            }
+        });
+
+
     }
 
     private void getDeviceLocation() {
@@ -124,24 +173,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //        }
 
         //location of nottingham
-        double lat = 29.800641711544987;
-        double lng = 121.56274010792607;
-        LatLng appointLoc = new LatLng(lat, lng);
 
         // 移动地图到指定经度的位置
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(appointLoc, DEFAULT_ZOOM));
+        mapLocate();
 
         //添加标记到指定经纬度
-        gMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).title("Marker")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
-
-
-        gMap.addMarker(new MarkerOptions().position(new LatLng(29.800060, 121.564924)).title("Marker1")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
-
-
-        gMap.addMarker(new MarkerOptions().position(new LatLng(29.798608, 121.561029)).title("Marker2")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
+        addMarker();
 
 
         //动态展示infowindow的数据
@@ -177,6 +214,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if(marker.getTitle().equals("Marker")) {
                     Intent i = new Intent(MapActivity.this, StationActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
+                    finish();
                 }else{
                     Toast.makeText(MapActivity.this, "Connection Lost", Toast.LENGTH_SHORT).show();
                 }
@@ -243,6 +281,71 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    private void addHeatMap() {
+        gMap.clear();
+//        List<LatLng> latLngs = new ArrayList<>();
+//        latLngs.add(new LatLng(29.800641711544987, 121.56274010792607));
+//        latLngs.add(new LatLng(29.800060, 121.564924 ));
+//        latLngs.add(new LatLng(29.798608, 121.561029));
 
+        List<WeightedLatLng> weightedLatLngs = new ArrayList<>();
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.800641711544987, 121.56274010792607), 100));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.80064171154497, 121.56274010792607), 50));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.800952, 121.562742), 60));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.801053, 121.563543), 80));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.800053, 121.563343), 80));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.801053, 121.562243), 80));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.801053, 121.562043), 80));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.801053, 121.562743), 80));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.800060, 121.564924 ), 50));
+        weightedLatLngs.add(new WeightedLatLng(new LatLng(29.798608, 121.561029), 150));
+        // Get the data: latitude/longitude positions of police; stations.
+        
+
+        // Create a heat map tile provider, passing it the latlngs of the police stations.
+        HeatmapTileProvider provider = new HeatmapTileProvider.Builder()
+                .weightedData(weightedLatLngs).radius(50)
+                .build();
+
+        // Add a tile overlay to the map, using the heat map tile provider.
+        overlay = gMap.addTileOverlay(new TileOverlayOptions().tileProvider(provider));
+    }
+
+    private List<LatLng> readItems(@RawRes int resource) throws JSONException {
+        List<LatLng> result = new ArrayList<>();
+        InputStream inputStream = MapActivity.this.getResources().openRawResource(resource);
+        String json = new Scanner(inputStream).useDelimiter("\\A").next();
+        JSONArray array = new JSONArray(json);
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            double lat = object.getDouble("lat");
+            double lng = object.getDouble("lng");
+            result.add(new LatLng(lat, lng));
+        }
+        return result;
+    }
+
+    private void addMarker(){
+        //添加标记到指定经纬度
+        gMap.addMarker(new MarkerOptions().position(new LatLng(29.800641711544987, 121.56274010792607)).title("Marker")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
+
+
+        gMap.addMarker(new MarkerOptions().position(new LatLng(29.800060, 121.564924)).title("Marker1")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
+
+
+        gMap.addMarker(new MarkerOptions().position(new LatLng(29.798608, 121.561029)).title("Marker2")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker3)));
+
+        mapLocate();
+    }
+
+    private void mapLocate(){
+        double lat = 29.800641711544987;
+        double lng = 121.56274010792607;
+        LatLng appointLoc = new LatLng(lat, lng);
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(appointLoc, DEFAULT_ZOOM));
+    }
 
 }
