@@ -38,7 +38,6 @@ import java.util.List;
 public class StationActivity extends AppCompatActivity {
 
     private final String TAG = this.getClass().getName();
-    private ProgressBar progressBar1, progressBar2, progressBar3;
     private FloatingActionButton chatbot;
     WebView webView1, webView2, webView3;
     RelativeLayout topBar;
@@ -68,8 +67,6 @@ public class StationActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(StationActivity.this, MapActivity.class);
-                startActivity(i);
                 finish();
             }
         });
@@ -78,14 +75,6 @@ public class StationActivity extends AppCompatActivity {
         webView1 = findViewById(R.id.webView1);
         webView2 = findViewById(R.id.webView2);
         webView3 = findViewById(R.id.webView3);
-
-        // progress bar
-        progressBar1 = findViewById(R.id.progressBar1);
-        progressBar2  = findViewById(R.id.progressBar2);
-        progressBar3 = findViewById(R.id.progressBar3);
-        progressBar1.setMax(100);
-        progressBar2.setMax(100);
-        progressBar3.setMax(100);
 
 //        //获取指定格式的数据
 //        reference = FirebaseDatabase.getInstance().getReference("IoTDevices").child("station1");
@@ -106,13 +95,14 @@ public class StationActivity extends AppCompatActivity {
 //                webView1.reload();
 //            }
 //        });
-        loadChart(webView1, progressBar1, 1);
-        loadChart(webView2, progressBar2, 2);
-        loadChart(webView3, progressBar3, 3);
+        loadChart(webView1,1);
+        loadChart(webView2,2);
+        loadChart(webView3, 3);
 
     }
 
-    private void loadChart(WebView webView, ProgressBar Bar, int i) {
+
+    private int loadChart(WebView webView, int i) {
 
         // 进行WebView设置
         WebSettings webSettings = webView.getSettings();
@@ -130,7 +120,6 @@ public class StationActivity extends AppCompatActivity {
                 webView.loadUrl("file:///android_asset/lightChart.html");
                 break;
         }
-        Bar.setVisibility(View.GONE);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -149,6 +138,10 @@ public class StationActivity extends AppCompatActivity {
                 view.loadUrl("javascript:createChart('line'," + EchartsDataBean.getInstance().getEchartsLineJson() + ");");
             }
         });
+
+        return 1;
+
+
 
 //        //进行webview设置
 //        WebSettings webSettings1 = webView1.getSettings();
@@ -170,4 +163,6 @@ public class StationActivity extends AppCompatActivity {
 //        });
 //        Log.d(TAG, "loadChart: finish!");
     }
+
+
 }

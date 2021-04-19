@@ -61,7 +61,7 @@
             android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-  Humidity: 60%"
+            android:text="-  Noise: 20 db"
             android:textColor="@color/colorPrimaryDark"
             android:layout_marginTop="90dp"
             android:layout_marginLeft="90dp"/>

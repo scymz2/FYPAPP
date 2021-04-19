@@ -228,7 +228,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Question1 Answers"
+                                android:text="Students Feedback On Temperature"
                                 android:textSize="18sp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="20dp"
@@ -240,7 +240,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginBottom="10dp"
                                 android:textSize="16sp"
-                                android:text="How is the weather today?"
+                                android:text="How do you feel about the current temperature?"
                                 android:textColor="#696969"/>
 
                             <WebView
@@ -271,7 +271,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Question2 Answers"
+                                android:text="Student Feedback On Noise"
                                 android:textSize="18sp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="20dp"
@@ -283,7 +283,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginBottom="10dp"
                                 android:textSize="16sp"
-                                android:text="How do you feel?"
+                                android:text="How do you feel the noise in your place?"
                                 android:textColor="#696969"/>
 
                             <WebView

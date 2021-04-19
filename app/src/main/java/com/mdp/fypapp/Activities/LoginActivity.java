@@ -99,7 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                                         startActivity(i);
                                         finish();
                                     }else{
-                                        Toast.makeText(LoginActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+                                        progressBar.setVisibility(View.GONE);
+                                        Toast.makeText(LoginActivity.this, "Wrong Email Address or Wrong Password!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });

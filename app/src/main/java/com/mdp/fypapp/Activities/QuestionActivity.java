@@ -92,7 +92,7 @@ public class QuestionActivity extends AppCompatActivity {
                             Log.d(TAG, document.getId() + "=>" + document.getData());
                             quizzes.add(document.toObject(Quiz.class));
                         }
-                        if(quizzes != null){
+                        if(quizzes.size() != 0){
                             questions = quizzes.get(0).getQuestions();
                             bindViews();
                         }else{

@@ -24,13 +24,26 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.JsonObject;
 import com.mdp.fypapp.Loading.ChatbotLoadingActivity;
 import com.mdp.fypapp.Loading.DataViewLoadingActivity;
 import com.mdp.fypapp.Loading.MapLoadingActivity;
 import com.mdp.fypapp.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -46,9 +59,10 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private MaterialToolbar actionBar;
     private DrawerLayout mainDrawer;
-    private TextView status_tv, time;
+    private TextView status_tv, time, temperature, humidity, description;
     private ImageView status;
     private ImageView avatar;
+    private String d, t, h;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         time.setText(simpleDateFormat.format(date));
 
         //google service
-        if(isServiceOK()){
+        if (isServiceOK()) {
             //Toast.makeText(this, "Connected!", Toast.LENGTH_SHORT).show();
             status.setImageResource(R.drawable.connected);
             status_tv.setText("connected");
@@ -76,6 +90,30 @@ public class MainActivity extends AppCompatActivity {
         mainDrawer = findViewById(R.id.mainDrawer);
         setUpDrawerLayout();
 
+        //getWeather
+        String url = "http://api.openweathermap.org/data/2.5/weather?q=Ningbo,china&APPID=885aa9eb815b6b6b1b24ce7ade4b78d9";
+        HttpUtil.sendRequestWithOkhttp(url, new okhttp3.Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                ArrayList data = parseJsonWithJsonObject(response);
+                d = (String) data.get(0);
+                t = (String) data.get(1);
+                h = (String) data.get(2);
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        description.setText(d);
+                        temperature.setText(String.valueOf(Double.parseDouble(t)- 273.15));
+                        humidity.setText(h + " %");
+                    }
+                });
+            }
+        });
 
 
         //profile
@@ -87,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
 
         //chatbtn
@@ -135,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
         //map
         sensor = findViewById(R.id.sensor);
-        sensor.setOnClickListener(new View.OnClickListener(){
+        sensor.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -144,26 +180,64 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //temp & humidity
+        temperature = findViewById(R.id.temperature);
+        humidity = findViewById(R.id.humidity);
+        description = findViewById(R.id.description);
+
     }
 
-    private void setUpDrawerLayout(){
+    private void setUpDrawerLayout() {
         setSupportActionBar(actionBar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, mainDrawer, R.string.app_name, R.string.app_name);
         actionBarDrawerToggle.syncState();
     }
 
-    public boolean isServiceOK(){
+    public boolean isServiceOK() {
         Log.d(TAG, "isServiceOK: checking google services version");
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
-        if(available == ConnectionResult.SUCCESS){
+        if (available == ConnectionResult.SUCCESS) {
             Log.d(TAG, "isServiceOK: Google Play Services is working");
             return true;
-        }else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             Log.d(TAG, "isServiceOK: an error occured but we can fix it");
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERR_DIALOG_REQUEST);
-        }else{
-            Toast.makeText(this,"you can't make map requests", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "you can't make map requests", Toast.LENGTH_SHORT).show();
         }
         return false;
+    }
+
+
+    static class HttpUtil {
+
+        public static void sendRequestWithOkhttp(String address, okhttp3.Callback callback) {
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder().url(address).build();
+            client.newCall(request).enqueue(callback);
+        }
+    }
+
+    private ArrayList parseJsonWithJsonObject(Response response) throws IOException {
+        String responseData = response.body().string();
+        ArrayList arrayList = new ArrayList();
+        try {
+            JSONObject jsonObject = new JSONObject(responseData);
+            JSONArray weather = jsonObject.getJSONArray("weather");
+            JSONObject main = jsonObject.getJSONObject("main");
+
+            JSONObject Weather = weather.getJSONObject(0);
+            String description = Weather.getString("description");
+            String temp = main.getString("temp");
+            String humidity = main.getString("humidity");
+
+            arrayList.add(description);
+            arrayList.add(temp);
+            arrayList.add(humidity);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
     }
 }

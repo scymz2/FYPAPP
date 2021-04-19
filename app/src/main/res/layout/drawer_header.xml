@@ -19,6 +19,7 @@
         android:textColor="#fff"
         android:id="@+id/textView5"
         android:layout_marginTop="16dp"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="admin" />
