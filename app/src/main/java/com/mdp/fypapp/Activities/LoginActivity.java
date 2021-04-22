@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import com.mdp.fypapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    String TAG = LoginActivity.this.getClass().getName();
     EditText userETLogin, passETLogin;
     Button loginBtn;
     TextView registerBtn;
@@ -79,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: ");
                 String email_text = userETLogin.getText().toString();
                 String pass_text = passETLogin.getText().toString();
 
@@ -101,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }else{
                                         progressBar.setVisibility(View.GONE);
                                         Toast.makeText(LoginActivity.this, "Wrong Email Address or Wrong Password!", Toast.LENGTH_SHORT).show();
+                                        loginBtn.setClickable(true);
                                     }
                                 }
                             });

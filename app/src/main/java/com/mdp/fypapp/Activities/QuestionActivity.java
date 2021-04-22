@@ -114,17 +114,20 @@ public class QuestionActivity extends AppCompatActivity {
         myRef.child("MyUsers").child(firebaseUser.getUid()).child("credit").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(!task.isSuccessful()){
-                    Log.d(TAG, "onComplete: firebase");
+                if(task.isSuccessful()){
+                    Log.d(TAG, "onComplete: firebase" + task.getResult().getValue().toString());
                     String c = task.getResult().getValue().toString();
                     credit = Integer.valueOf(c);
+                    Log.d(TAG, "onComplete: " + c);
+                    myRef = database.getReference();
+                    myRef.child("MyUsers").child(firebaseUser.getUid()).child("credit").setValue(String.valueOf(credit+10));
                 }else{
                     Log.d(TAG, "onFailure: firebase");
                 }
             }
         });
-        myRef = database.getReference();
-        myRef.child("MyUsers").child(firebaseUser.getUid()).child("credit").setValue(String.valueOf(credit+10));
+        //myRef = database.getReference();
+        //myRef.child("MyUsers").child(firebaseUser.getUid()).child("credit").setValue(String.valueOf(credit+10));
     }
 
 
@@ -160,13 +163,27 @@ public class QuestionActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadResult();
-                addCredit();
-                Intent intent = new Intent(QuestionActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                Toast.makeText(QuestionActivity.this, "Thank you for you patience!, your points have been credited ", Toast.LENGTH_SHORT).show();
+                //check if there is one empty result
+                if(checkResult()){
+                    uploadResult();
+                    addCredit();
+                    Intent intent = new Intent(QuestionActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    Toast.makeText(QuestionActivity.this, "Thank you for you patience!, your points have been credited ", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(QuestionActivity.this, "Not all questions answered", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private boolean checkResult() {
+        for (int i=0; i< questions.size(); i++){
+            if(questions.get("question" + String.valueOf(i+1)).getAnswer().equals("none")){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void uploadResult(){

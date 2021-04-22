@@ -83,33 +83,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         getLocationPermission();
 
-        map.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(overlay != null){
-                    overlay.remove();
-                    gMap.clear();
-                    addMarker();
-                    addPolygon();
-                }
-            }
-        });
-
-        heat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addHeatMap();
-                addPolygon();
-            }
-        });
-
-        locate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mapLocate();
-            }
-        });
-
 
 
     }
@@ -160,6 +133,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(overlay != null){
+                    overlay.remove();
+                    gMap.clear();
+                    addMarker();
+                    addPolygon();
+                }
+            }
+        });
+
+        heat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addHeatMap();
+                addPolygon();
+            }
+        });
+
+        locate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mapLocate();
+            }
+        });
     }
 
     @Override
@@ -185,15 +185,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //location of nottingham
 
-        // 移动地图到指定经度的位置
+        // move map to the unnc
         mapLocate();
 
-        //添加标记到指定经纬度
+        // add markers
         addMarker();
         addPolygon();
 
 
-        //动态展示infowindow的数据
+        // show info window
         gMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
@@ -298,19 +298,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mLocationPermissionGranted = false;
 
         switch (requestCode){
-            case LOCATION_PERMISSION_REQUEST_CODE:{
-                if(grantResults.length > 0){
-                    for(int i =0; i < grantResults.length; i++){
-                        mLocationPermissionGranted = false;
-                        return;
-                    }
+            case LOCATION_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
                     mLocationPermissionGranted = true;
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }  else {
+                    mLocationPermissionGranted = false;
                     //initialize our map
-                    initMap();
+                    //initMap();
                 }
+                return;
             }
         }
     }
+
+
 
     private void addHeatMap() {
         gMap.clear();
@@ -351,7 +358,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void addMarker(){
-        //添加标记到指定经纬度
+
         gMap.addMarker(new MarkerOptions().position(new LatLng(29.801307706799356, 121.56411954566717)).title("Marker")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker2)));
 

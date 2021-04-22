@@ -20,7 +20,7 @@ public class MapLoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map_loading);
 
         Handler x = new Handler();
-        x.postDelayed(new splashhandler(), 1000);
+        x.postDelayed(new splashhandler(), 700);
     }
 
     class splashhandler implements Runnable{

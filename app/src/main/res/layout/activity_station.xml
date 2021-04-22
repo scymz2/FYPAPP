@@ -23,12 +23,12 @@
     <RelativeLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="#054791" >
         <ImageView
             android:id="@+id/backToMain"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
@@ -41,7 +41,7 @@
             android:text="Data"
             android:fontFamily="sans-serif"
             android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -85,7 +85,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="20dp"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#fff"
                                 android:textStyle="italic"
                                 android:text="Temperature" />
@@ -98,7 +98,7 @@
                                 android:layout_marginLeft="55dp"
                                 android:text="25 ℃"
                                 android:textColor="#FFF"
-                                android:textSize="34sp"/>
+                                android:textSize="30sp"/>
 
 
                         </LinearLayout>
@@ -109,10 +109,10 @@
 
                             <ImageView
                                 android:id="@+id/imageView14"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginTop="25dp"
                                 android:layout_marginRight="45dp"
                                 android:layout_gravity="center_vertical"
                                 android:src="@drawable/temperature"/>
@@ -121,10 +121,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="SENSOR: LM35"
-                                android:layout_marginTop="100dp"
+                                android:layout_marginTop="85dp"
                                 android:layout_marginRight="30dp"
                                 android:textColor="#fff"
-                                android:textSize="14sp"/>
+                                android:textSize="13sp"/>
 
 
 
@@ -145,6 +145,7 @@
                         <WebView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="3dp"
                             android:background="@color/colorPrimaryDark"
                             android:id="@+id/webView1"/>
 
@@ -192,7 +193,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="20dp"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#fff"
                                 android:textStyle="italic"
                                 android:text="Noise" />
@@ -205,7 +206,7 @@
                                 android:layout_marginLeft="50dp"
                                 android:text="20 db"
                                 android:textColor="#FFF"
-                                android:textSize="34sp"/>
+                                android:textSize="30sp"/>
 
 
                         </LinearLayout>
@@ -216,10 +217,10 @@
 
                             <ImageView
                                 android:id="@+id/im_humidity"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginTop="25dp"
                                 android:layout_marginRight="40dp"
                                 android:layout_gravity="center_vertical"
                                 android:src="@drawable/sounds"/>
@@ -228,10 +229,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="SENSOR: --"
-                                android:layout_marginTop="100dp"
+                                android:layout_marginTop="85dp"
                                 android:layout_marginRight="25dp"
                                 android:textColor="#fff"
-                                android:textSize="14sp"/>
+                                android:textSize="13sp"/>
 
 
 
@@ -253,6 +254,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorPrimaryDark"
+                            android:padding="3dp"
                             android:id="@+id/webView2"/>
 
 
@@ -300,7 +302,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="30dp"
                                 android:layout_marginTop="20dp"
-                                android:textSize="20sp"
+                                android:textSize="18sp"
                                 android:textColor="#fff"
                                 android:textStyle="italic"
                                 android:text="Light" />
@@ -313,7 +315,7 @@
                                 android:layout_marginLeft="50dp"
                                 android:text="243 lux"
                                 android:textColor="#FFF"
-                                android:textSize="34sp"/>
+                                android:textSize="30sp"/>
 
 
                         </LinearLayout>
@@ -324,10 +326,10 @@
 
                             <ImageView
                                 android:id="@+id/im_light"
-                                android:layout_width="60dp"
-                                android:layout_height="60dp"
+                                android:layout_width="55dp"
+                                android:layout_height="55dp"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="35dp"
+                                android:layout_marginTop="25dp"
                                 android:layout_marginRight="45dp"
                                 android:layout_gravity="center_vertical"
                                 android:src="@drawable/sunny"/>
@@ -336,10 +338,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="SENSOR: SHT20"
-                                android:layout_marginTop="100dp"
+                                android:layout_marginTop="85dp"
                                 android:layout_marginRight="25dp"
                                 android:textColor="#fff"
-                                android:textSize="14sp"/>
+                                android:textSize="13sp"/>
 
 
 
@@ -361,6 +363,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorPrimaryDark"
+                            android:padding="3dp"
                             android:id="@+id/webView3"/>
 
 

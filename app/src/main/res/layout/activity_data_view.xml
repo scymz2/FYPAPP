@@ -52,27 +52,27 @@
                             android:src="@drawable/avatar1"
                             android:layout_marginLeft="25dp"
                             android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp"/>
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginRight="20dp">
                             <TextView
                                 android:layout_marginTop="12dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="#667B93"
                                 android:text="Rank"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="1"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
@@ -84,21 +84,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginRight="20dp">
                             <TextView
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="12dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="#667B93"
                                 android:text="Credit"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
@@ -109,20 +109,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
-                            android:layout_marginLeft="20dp">
+                            android:layout_marginLeft="10dp">
                             <TextView
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="12dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="#667B93"
                                 android:text="Type"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="admin"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textStyle="bold"
                                 android:layout_centerHorizontal="true"
@@ -139,7 +139,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="Mochuan Zhan"/>
@@ -148,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
-                            android:textSize="17sp"
+                            android:textSize="13sp"
                             android:text="Author / Admin"
                             android:textColor="#696969"/>
                     </LinearLayout>
@@ -162,7 +162,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="About"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:layout_marginLeft="10dp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimaryDark"/>
@@ -174,14 +174,14 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="10dp"
                             android:text=" This is the author of this application, the tasks including UI / UX design, front-end coding, back-end coding and the deployment of the database."
-                            android:textSize="15sp"
+                            android:textSize="13sp"
                             android:textColor="#696969"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Access Times"
-                            android:textSize="18sp"
+                            android:text="Accessed Times"
+                            android:textSize="16sp"
                             android:layout_marginLeft="10dp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimaryDark"/>
@@ -215,8 +215,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_margin="15dp"
-                        android:layout_width="380dp"
-                        android:layout_height="410dp"
+                        android:layout_width="330dp"
+                        android:layout_height="350dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         tools:ignore="MissingConstraints">
@@ -229,7 +229,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Students Feedback On Temperature"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="20dp"
                                 android:textStyle="bold"
@@ -238,13 +238,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:layout_marginBottom="10dp"
-                                android:textSize="16sp"
+                                android:layout_marginBottom="0dp"
+                                android:textSize="13sp"
                                 android:text="How do you feel about the current temperature?"
                                 android:textColor="#696969"/>
 
                             <WebView
                                 android:id="@+id/webView2"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 tools:ignore="WebViewLayout" />
@@ -258,8 +260,8 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_margin="15dp"
-                        android:layout_width="380dp"
-                        android:layout_height="410dp"
+                        android:layout_width="330dp"
+                        android:layout_height="350dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="0dp"
                         tools:ignore="MissingConstraints">
@@ -272,7 +274,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Student Feedback On Noise"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginTop="20dp"
                                 android:textStyle="bold"
@@ -281,13 +283,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
-                                android:layout_marginBottom="10dp"
-                                android:textSize="16sp"
+                                android:layout_marginBottom="0dp"
+                                android:textSize="13sp"
                                 android:text="How do you feel the noise in your place?"
                                 android:textColor="#696969"/>
 
                             <WebView
                                 android:id="@+id/webView3"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 tools:ignore="WebViewLayout" />
@@ -323,7 +327,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Most Frequent topic with chatbot"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:textStyle="bold"
@@ -336,7 +340,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
                         android:text="This data is analyzed by using the NLP technique."
-                        android:textSize="15sp"
+                        android:textSize="13sp"
                         android:textColor="#696969"/>
 
                     <WebView

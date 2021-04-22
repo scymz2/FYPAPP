@@ -22,8 +22,7 @@
         <activity android:name=".Loading.MapLoadingActivity" />
         <activity android:name=".Loading.DataViewLoadingActivity" />
         <activity
-            android:name=".Activities.QuestionActivity"
-            android:theme="@style/AppTheme" />
+            android:name=".Activities.QuestionActivity"/>
         <activity android:name=".Activities.Main2Activity" />
         <activity android:name=".Activities.QuizActivity" />
         <activity android:name=".Activities.ChartActivity" />

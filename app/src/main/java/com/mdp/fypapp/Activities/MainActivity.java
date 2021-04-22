@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         description.setText(d);
-                        temperature.setText(String.valueOf(Double.parseDouble(t)- 273.15));
+                        temperature.setText(String.valueOf((int)(Double.parseDouble(t)- 273.15)));
                         humidity.setText(h + " %");
                     }
                 });

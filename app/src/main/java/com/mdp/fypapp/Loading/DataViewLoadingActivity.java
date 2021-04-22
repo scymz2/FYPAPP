@@ -20,7 +20,7 @@ public class DataViewLoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_data_view_loading);
 
         Handler x = new Handler();
-        x.postDelayed(new DataViewLoadingActivity.splashhandler(), 2000);
+        x.postDelayed(new DataViewLoadingActivity.splashhandler(), 700);
     }
 
     class splashhandler implements Runnable{

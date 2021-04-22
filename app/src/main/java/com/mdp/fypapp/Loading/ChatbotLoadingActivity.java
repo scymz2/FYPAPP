@@ -19,7 +19,7 @@ public class ChatbotLoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chatbot_loading);
 
         Handler x = new Handler();
-        x.postDelayed(new ChatbotLoadingActivity.splashhandler(), 2000);
+        x.postDelayed(new ChatbotLoadingActivity.splashhandler(), 700);
     }
 
     class splashhandler implements Runnable{
